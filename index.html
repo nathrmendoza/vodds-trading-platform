@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vodds | Trading Platform</title>
+    <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+    <div id="trading-platform">
+        
+        <!--MAIN MODAL-->
+        <div class="main-modal" :class="{active : mainmodal}">
+            <div class="inner-cont">
+                <div class="top">
+                    <h2>MY ACCOUNT</h2>
+                    <span class="clsbtn" @click="{mainmodal = !mainmodal; resetPos(event.target)}"></span>
+                </div>
+                <div class="modal-cont" >
+                    <div class="left-accord">
+                        <ul class="outer">
+                            <li><h3>ACCOUNT</h3>
+                                <ul class="inner" :class="{active : imm[1]}">
+                                    <li><p>Credentials</p></li>
+                                    <li><p>Personal Details</p></li>
+                                    <li @click="{resetInner(1)}" :class="{active : imm[1]}"><p>Refer a friend</p></li>
+                                </ul>
+                            </li>
+                            <li><h3>REPORT</h3>
+                                <ul class="inner">
+                                    <li><p>Overview</p></li>
+                                    <li><p>P&L Report</p></li>
+                                    <li><p>Unsettled Orders</p></li>
+                                    <li><p>Transactions</p></li>
+                                    <li><p>Past Activities</p></li>
+                                </ul>
+                            </li>
+                            <li><h3>SETTING</h3>
+                                <ul class="inner">
+                                    <li><p>Preferences</p></li>
+                                </ul>
+                            </li>
+                            <li><h3>FUNDINGS</h3>
+                                <ul class="inner" :class="{active:imm[0]}">
+                                    <li><p>Funding Methods</p></li>
+                                    <li @click="{resetInner(0)}" :class="{active : imm[0]}"><p>Deposits/Withdrawal Requrests</p></li>
+                                </ul>
+                            </li>
+                            <li><h3>TERMS OF USE</h3>
+                                <ul class="inner">
+                                    <li><p>Preferences</p></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right-cont" :key="rerenderKey">
+    
+                        <!--DEPOSIT WITHDRAWAL-->
+                        <div id="depowith" class="main-modal-content" :class="{active : imm[0]}">
+                            <div class="cont">
+                                <h1>Deposit/Withdrawal Requests</h1>
+                                <p>This page lets you submit deposit/withdrawal request. It also shows the status of your past requests</p>
+                                <div class="list-cont">
+                                    <div class="submit-row"><a href="#">SUBMIT NEW REQUEST</a></div>
+                                    <div class="records">
+                                        <ul class="titles">
+                                            <li>Reference No.</li>
+                                            <li>Type</li>
+                                            <li>Ammount</li>
+                                            <li>Funding Method</li>
+                                            <li>Submitted on</li>
+                                            <li>Status</li>
+                                            <li>Remarks</li>
+                                        </ul>
+    
+                                        <!--<ul class="item"> sample record/item
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                            <li></li>
+                                        </ul>-->
+                                        <p class="norecords">No records</p> <!--if no records-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!--REFER A FRIEND-->
+                        <div id="referfriend" class="main-modal-content" :class="{active : imm[1]}">
+                            <div class="cont">
+                                <h1>Refer A Friend</h1>
+                                <div class="refer-inner">
+                                    <h2>IT PAYS TO HAVE FRIENDS<br>EARN UP TO £/£50 PER REFERRAL</h2>
+                                    <div class="code"><h1>CORY5HA90</h1></div>
+                                    <p><em>Share your unique referral code to get bonuses</em></p>
+                                    <div class="share-links">
+                                        <a href="#"><img src="#" alt="share"></a>
+                                        <a href="#"><img src="#" alt="twitter"></a>
+                                        <a href="#"><img src="#" alt="gmail"></a>
+                                    </div>
+                                    <p>Get as much as 20% of your friends initial deposit up to maximum £/£50</p>
+                                    <a href="#">Terms and Conditions apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--ANNOUNCEMENT MODAL-->
+        <div class="ann-modal" :class="{active : annmodal}">
+            <div class="inner-cont">
+                <div class="top"><h2>ANNOUNCEMENT</h2>
+                    <span class="clsbtn" @click="{annmodal = !annmodal; resetPos(event.target)}"></span>
+                </div>
+                <div class="cont">
+                    <ul class="titles">
+                        <li>Time</li>
+                        <li>Notification</li>
+                    </ul>
+                    <ul class="item">
+                        <li>2019-10-14</li>
+                        <li>Experience the platform in Russian by selecting the language on the upper right corner Vodds!</li>
+                    </ul>
+                    <ul class="item">
+                        <li>2019-10-14</li>
+                        <li>Experience the platform in Russian by selecting the language on the upper right corner Vodds!</li>
+                    </ul>
+                    <ul class="item">
+                        <li>2019-10-14</li>
+                        <li>Experience the platform in Russian by selecting the language on the upper right corner Vodds!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!--WATCHLIST MODAL-->
+        <div class="addwlist-modal" :class="{active : wlistmodal}">
+            <div class="inner-cont">
+                <div class="top"><h2>ADD NEW WATCHLIST - SOCCER</h2>
+                    <span class="clsbtn" @click="{wlistmodal = !wlistmodal; resetPos(event.target)}"></span></div>
+                <div class="cont">
+                    <input type="text" class="sbox" placeholder="Search Leagues/Matches">
+                    <div class="filterbymarkets">
+                        <h4>FILTER BY MARKETS</h4>
+                        <div class="filter-cont">
+                            <input type="text" id="wlist-filter" placeholder="All Type">
+                            <ul class="wlist-filter-drop">
+                                <li>FT HDP</li>
+                                <li>CF HDP</li>
+                                <li>FT HDP</li>
+                                <li>FT HDP</li>
+                                <li>FT HDP</li>
+                            </ul>
+                            <span class="clear-button"></span>
+                        </div>
+                        <div class="etype">
+                            <p>Event type</p>
+                            <div class="etype-select">
+                                <select name="etype" id="etype-sel">
+                                    <option value="a">All</option>
+                                    <option value="b">b</option>
+                                    <option value="c">c</option>
+                                </select>
+                                <div class="select-buttons">
+                                    <span class="up"></span>
+                                    <span class="down"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="market">
+                            <p>All Markets</p>
+                            <div class="market-select">
+                                <select name="mketsel" id="mket-sel">
+                                    <option value="a">All</option>
+                                    <option value="b">b</option>
+                                    <option value="c">c</option>
+                                </select>
+                                <div class="select-buttons">
+                                    <span class="up"></span>
+                                    <span class="down"></span>
+                                </div>
+                            </div>
+                            <a href="#">Click here to filter by match start time</a>
+                        </div>
+                    </div>
+                    <div class="btm-checkboxes">
+                        <ul>
+                            <li><button class="cu-checks">Check All/Uncheck All</button></li>
+                            <li class="auto-include"><input type="checkbox"><p>Auto include new matches</p></li>
+                        </ul>
+                        
+                        <div class="checkbox-row">
+                            <div class="left-check"><!--reflects right checkboxes onclick shows right items-->
+                                <input type="checkbox"><p>Armenia Cup</p>
+                            </div>
+                            <div class="right-check">
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <div class="left-check"><!--reflects right checkboxes onclick shows right items-->
+                                <input type="checkbox"><p>Armenia Cup</p>
+                            </div>
+                            <div class="right-check">
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-row">
+                            <div class="left-check"><!--reflects right checkboxes onclick shows right items-->
+                                <input type="checkbox"><p>Armenia Cup</p>
+                            </div>
+                            <div class="right-check">
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                                <div class="check-cont">
+                                    <input type="checkbox">
+                                    <p>FC Gandzasar Kapan vs Alashkart FC</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-add">
+                        <div class="left"><p>Watchlist Name</p><input type="text"></div>
+                        <div class="right">
+                            <button id="cancel-wlist">Cancel</button>
+                            <button id="add-wlist">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--TICKET ORDERS MODAL-->
+        <div class="order-ticket" :class="{active : ordmodal}">
+            <div class="inner-cont">
+                <div class="top"><h2>ORDER TICKET</h2><span class="clsbtn"></span></div>
+                <div class="gamename"><h4>Pre-game FT <span class="team-one">Newcastle United</span> vs <span class="team-two">Manchester City</span></h4></div>
+                <ul class="current-future"><li id="cur-ord" class="active">Current Order</li><li id="fut-ord">Future Order</li></ul>
+                <div class="bottom-cont">
+                    <div class="inner">
+                        <div class="stakenodd">
+                            <ul>
+                                <li><p>Min Stake:</p><p>6</p></li>
+                                <li><p>Max Stake:</p><p>1,172</p></li>
+                                <li><p>Avg. Odd:</p><p>5,120</p></li>
+                                <li><p>Expected Returns:</p><p>NaN</p></li>
+                                <li><p>Stake:</p><input type="text"></li>
+                                <li><p>Odd:</p><input type="text"></li>
+                            </ul>
+                        </div>
+        
+                        <div class="homestats">
+                            <aside><p>HOME</p><p>+ 0.50</p></aside>
+                            <ul>
+                                <li><p>Min</p><p>Max</p></li>
+                                <li><p>PIN88</p><p>6</p><p>1,172</p><p>5.120</p></li>
+                                <li><p>PIN88</p><p>6</p><p>1,172</p><p>5.120</p></li>
+                                <li><p>PIN88</p><p>6</p><p>1,172</p><p>5.120</p></li>
+                                <li><p>PIN88</p><p>6</p><p>1,172</p><p>5.120</p></li>
+                                <li><p>PIN88</p><p>6</p><p>1,172</p><p>5.120</p></li>
+                            </ul>
+                        </div>
+        
+                        <div class="awaystats">
+                            <aside><p>AWAY</p><p>-0.50</p></aside>
+                            <ul>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                                <li><p>PIN88</p><p>1.200</p></li>
+                            </ul>
+                        </div>
+    
+                        <div class="place-order">
+                            <input type="submit" value="Place Order">
+                        </div>
+                    </div>
+                </div>
+                <aside class="spacer"></aside>
+            </div>
+        </div>
+
+
+
+        <!--PAGE START-->
+        <header class="trad-plat-hdr-desk">
+            <div class="container">
+                <a href="#" class="logimg"><img src="./images/vodds-tplat-logo.png" alt="vodds-tplat-logo"></a>
+                <div class="right">
+                    <div class="top-stats">
+                        <ul class="stats">
+                            <li><p>Currency</p><p>GBP</p></li>
+                            <li><p>Credit</p><p>20,000.00</p></li>
+                            <li><p>Unrealized P/L</p><p>0.00</p></li>
+                            <li><p>Max Potential Loss</p><p>0.00</p></li>
+                            <li><p>Margin</p><p>0.00</p></li>
+                            <li><p>Profit/Loss</p><p>0.00</p></li>
+                            <li><p>Odd format</p><p>0.00</p></li>
+                        </ul>
+                        <ul class="show-hide-stats">
+                            <li>Select item to view</li>
+                            <li><input type="checkbox"><p>Credits</p><span>0.00</span></li>
+                            <li><input type="checkbox"><p>Unrealized P/L</p><span>0.00</span></li>
+                            <li><input type="checkbox"><p>Max Potential Loss</p><span>0.00</span></li>
+                            <li><input type="checkbox"><p>Margin</p><span>0.00</span></li>
+                            <li><input type="checkbox"><p>Profit/Loss</p><span>0.00</span></li>
+                            <li><input type="checkbox"><p>Outstanding Amount</p><span>0.00</span></li>
+                        </ul>
+                    </div>
+                    <div class="right-util-nav">
+                        <ul>
+                            <li @click="{mainmodal = !mainmodal; imm[0] = !imm[0]}" title="Deposit/Withdrawal Requests"><img src="./images/wallet.png" alt="wallet"></li>
+                            <li><a href="#"><img src="./images/question.png" alt="question" title="Help"></a></li>
+                            <li @click="{mainmodal = !mainmodal; imm[1] = !imm[1]}" title="Refer a Friend"><img src="./images/currency.png" alt="currency"></li>
+                            <li class="mcount-ddown" title="Settings"><img src="./images/person.png" alt="person"><span class="darrow"></span>
+                                <ul>
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">Upload supporting documents</a></li>
+                                    <li><a href="#">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li @click="{annmodal = !annmodal}" title="Announcements"><img src="./images/notif.png" alt="bell"></li>
+                            <li>
+                                <input id="colorm" type="checkbox" v-model="colormode">
+                                <label for="colorm">
+                                <span class="sder"></span>
+                                </label></li>
+                            <li class="country-ddown"><img src="./images/country.png" alt="">
+                                <span class="arrow-down"></span>
+                                <ul>
+                                    <li><a href="#"><img src="./images/country.png" alt="e"><p>English</p></a></li>
+                                    <li><a href="#"><img src="./images/country.png" alt="e"><p>English</p></a></li>
+                                    <li><a href="#"><img src="./images/country.png" alt="e"><p>English</p></a></li>
+                                    <li><a href="#"><img src="./images/country.png" alt="e"><p>English</p></a></li>
+                                    <li><a href="#"><img src="./images/country.png" alt="e"><p>English</p></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+    
+        <div class="trad-plat-page" :class="{dark : colormode}">
+            <section class="gms-nav" >
+                    <div class="top">
+                        <div class="container">
+                            <div class="sport-cat-tabs">
+                                <ul>
+                                    <li class="active"><img src="./images/soccr.png" alt="soccer"></li>
+                                    <li><img src="./images/baseb.png" alt="baseball"></li>
+                                    <li><img src="./images/basket.png" alt="basketball"></li>
+                                </ul>
+                            </div>
+                            <div class="wlist-drop-cont">
+                                <h2>Watch List</h2>
+                                <ul class="wlist-drop">
+                                    <li class="add-wlist" @click="{wlistmodal = !wlistmodal}"><p>+ Add new watchlist</p></li>
+                                    <li><input type="checkbox"><p>HOT</p></li>
+                                    <li><input type="checkbox"><p>New Watchlist</p><span class="rename-wlist"></span><span class="remove-wlist"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bot">
+                        <div class="container">
+                            <div class="filter-tabs">
+                                <ul>
+                                    <li class="active">FAVOURITE</li>
+                                    <li>LIVE</li>
+                                    <li>TODAY</li>
+                                    <li>EARLY</li>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <div class="mrkt-drop-cont">
+                                    <h3>MARKETS</h3>
+                                    <ul class="mrkt-drop">
+                                        <li><a href="#">CORNER</a></li>
+                                        <li><a href="#">SPECIAL</a></li>
+                                        <li><a href="#">HALF TIME</a></li>
+                                        <li><a href="#">FULL TIME</a></li>
+                                    </ul>
+                                </div>
+                                <div class="search">
+                                    <input type="text" placeholder="Search for match/league">
+                                </div>
+                            </div>
+                        </div>
+                        <!--TOP ROW COLUMN CATEGORY TITLES-->
+                        <ul class="games-titles">
+                            <li><p>Time</p></li>
+                            <li><p>Match</p></li>
+                            <li><p>Type</p></li>
+                            <li><p>HDP</p></li>
+                            <li><p>Away</p></li>
+                            <li><p>OU</p></li>
+                            <li><p>Over</p></li>
+                            <li><p>Under</p></li>
+                            <li><p>Home</p></li>
+                            <li><p>Draw</p></li>
+                            <li><p>Away</p></li>
+                        </ul>
+                    </div>
+            </section>
+    
+            <section class="table-games lg">
+                <div class="container">
+                    
+                    <!--STAR ROW-->
+                    <ul class="tgames-row star">
+                        <li><img src="./images/wstar.png" alt="star"></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+                    
+                    <!--STAR ROW-->
+                    <ul class="tgames-row star">
+                        <li><img src="./images/wstar.png" alt="star"></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+    
+                    <!--ITEM OF THE TABLE-->
+                    <ul class="tgames-row gms-items">
+                        <li class="btns-time">
+                            <div class="btns">
+                                <button class="flow"><img src="./images/flow.png" alt=""></button>
+                                <button class="plus"><img src="./images/plus.png" alt=""></button>
+                                <button class="minus"><img src="./images/minus.png" alt=""></button>
+                                <button class="star"><img src="./images/bstar-item.png" alt=""></button><!--PWEDENG input checkbox-->
+                            </div>
+                            <div class="dtime">
+                                <p id="date">Live Oct 23</p><p class="time">08:30</p>
+                            </div>
+                        </li>
+    
+                        <li class="match"><p><span>Correcaminos De La Uat</span> vs Santos Laguna</p></li>
+                        <li><p>FT</p></li>
+                        <li><p>- 0.25</p></li>
+                        <li><p>2.750</p></li>
+                        <li><p>1.50</p></li>
+                        <li><p>5.540</p></li>
+                        <li><p>2.010</p></li>
+                        <li><p>1.030</p></li>
+                        <li><p>12.000</p></li>
+                        <li><p>36.000</p></li>
+                    </ul>
+                </div>
+            </section>
+    
+            <!--ORDERS TABLE-->
+            <section class="table-orders sm">
+                    <!--SORT TABS and UTILITY BUTTONS-->
+                    <div class="top-bar">
+                        <div class="container">
+                            <ul class="ordrs-tabs">
+                                <li class="active"><p>All</p></li>
+                                <li><p>Normal Orders</p></li>
+                                <li><p>Positional Orders</p></li>
+                            </ul>
+                            <div class="right">
+                                <div class="filter">
+                                    <input type="text" placeholder="Filter ID / League / Team">
+                                </div>
+                                <div class="btn-utils">
+                                    <button class="l-arr"><img src="./images/right.png" alt=""></button>
+                                    <button class="r-arr"><img src="./images/right.png" alt=""></button>
+                                    <button id="sdock"><img src="./images/sdock.png" alt="sd"></button>
+                                    <button id="mdock"><img src="./images/mdock.png" alt="md"></button>
+                                    <button id="ldock"><img src="./images/ldock.png" alt="ld"></button>
+                                    <div class="orders-ddown">
+                                        <span class="ddown"></span>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="order-table">
+                        <div class="container">
+                            <ul class="col-name">
+                                <li><p>ID</p></li>
+                                <li><p>Order<br>Time</p></li>
+                                <li><p>Sport<br>Type</p></li>
+                                <li><p>League</p></li>
+                                <li><p>Match</p></li>
+                                <li><p>Selection</p></li>
+                                <li><p>Odd</p></li>
+                                <li><p>Stake</p></li>
+                                <li><p>Confirmed<br>Odd</p></li>
+                                <li><p>Confirmed<br>Stake</p></li>
+                                <li><p>Total<br>Bets</p></li>
+                                <li><p>Status</p></li>
+                                <li><p>Action</p></li>
+                            </ul>
+        
+                            <!--ORDER gms-items-->
+                            <ul class="ord-items">
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                            </ul>
+        
+                            <!--ORDER gms-items-->
+                            <ul class="ord-items">
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                            </ul>
+        
+                            <!--ORDER gms-items-->
+                            <ul class="ord-items">
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                            </ul>
+        
+                            <!--ORDER gms-items-->
+                            <ul class="ord-items">
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                                <li><!--EMPTY--></li>
+                            </ul>
+                        </div>
+                    </div>
+    
+            </section>
+        </div>
+    </div>
+    
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>
