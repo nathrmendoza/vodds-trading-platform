@@ -8,6 +8,13 @@
 }
 
 @font-face {
+    font-family: 'Avenir';
+    font-weight: bold;
+    src : url('../fonts/Avenir-Heavy.woff') format('woff'),
+          url('../fonts/Avenir-Heavy.woff2') format('woff2');
+}
+
+@font-face {
     font-family : 'Avenir-Black';
     src: url('../fonts/Avenir-Black.woff') format('woff'),
          url('../fonts/Avenir-Black.woff2') format('woff2');
